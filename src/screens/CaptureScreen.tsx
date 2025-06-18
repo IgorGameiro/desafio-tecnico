@@ -1,5 +1,5 @@
 // src/screens/CaptureScreen.tsx
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const CaptureScreen = () => {
   // 'stream' vai guardar o vídeo da câmera quando ele estiver ativo.
