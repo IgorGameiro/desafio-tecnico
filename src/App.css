@@ -1,0 +1,58 @@
+/* src/App.css - VERSÃO FINAL E ROBUSTA */
+
+/* Apague TUDO do seu App.css e cole este código. */
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #333; /* Fundo escuro para a página inteira */
+}
+
+/* O #root ancora nosso app na tela inteira */
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* O "celular", nosso container principal */
+.app-container {
+  /* PROPORÇÃO: A regra mais importante, vale para TUDO */
+  aspect-ratio: 9 / 16;
+  
+  /* TAMANHO: Ocupa a altura inteira, a largura se ajustará pela proporção */
+  height: 100%; 
+  
+  /* Limites para não ficar estranho em telas muito largas ou muito pequenas */
+  max-width: 100vw; /* Garante que nunca seja mais largo que a tela */
+  
+  /* ESTILOS VISUAIS */
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* A classe para CADA tela individual (StartScreen, etc.) */
+.screen {
+  width: 100%;
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #005c9e; /* <<< ADICIONE ESTA LINHA (um tom de azul escuro) */
+}
+
+/* BÔNUS: No computador, damos uma aparência de "aparelho" */
+@media (min-width: 600px) {
+  .app-container {
+    height: 85%; /* No desktop, ele não cola no topo e no rodapé */
+    max-height: 850px; /* Limite de altura */
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+  }
+}
