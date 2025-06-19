@@ -1,6 +1,4 @@
-/* src/App.css - VERSÃO FINAL E ROBUSTA */
-
-/* Apague TUDO do seu App.css e cole este código. */
+/* src/App.css - VERSÃO FINAL E ROBUSTA COM PALETA COERENTE */
 
 body {
   margin: 0;
@@ -44,7 +42,7 @@ body {
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
-  color: #005c9e; /* <<< ADICIONE ESTA LINHA (um tom de azul escuro) */
+  color: #005c9e; /* Um tom de azul escuro. Mantido para texto geral. */
 }
 
 /* BÔNUS: No computador, damos uma aparência de "aparelho" */
@@ -55,7 +53,7 @@ body {
     border-radius: 20px;
     box-shadow: 0 0 25px rgba(0,0,0,0.5);
   }
-  /* Adicione este código no final do seu App.css */
+}
 
 .final-title {
   /* Centraliza o texto caso ele quebre em mais de uma linha */
@@ -70,4 +68,38 @@ body {
   /* Garante que palavras longas não quebrem o layout */
   word-break: break-word;
 }
+
+/* NOVO: Estilo para os botões principais do app - CORES ATUALIZADAS! */
+.start-button {
+  background-color: #004D40; /* Verde escuro/azulado da StartScreen */
+  color: white;
+  border: none;
+  border-radius: 50px; /* Bordas bem arredondadas para um visual moderno */
+  padding: 15px 30px;
+  font-size: 1.2em; /* Um pouco maior */
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 77, 64, 0.3); /* Sombra sutil com a cor do botão */
+  transition: all 0.3s ease; /* Animação suave para o hover */
+  min-width: 180px; /* Garante um tamanho mínimo */
+  text-transform: uppercase; /* Deixa o texto em maiúsculas */
+  letter-spacing: 1px; /* Espaçamento entre as letras */
+}
+
+.start-button:hover {
+  background-color: #00332B; /* Tom mais escuro para o hover */
+  box-shadow: 0 6px 15px rgba(0, 77, 64, 0.4);
+  transform: translateY(-2px); /* Efeito de "levantar" */
+}
+
+.start-button:active {
+  transform: translateY(0); /* Volta ao normal no clique */
+  box-shadow: 0 2px 5px rgba(0, 77, 64, 0.2);
+}
+
+.start-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }

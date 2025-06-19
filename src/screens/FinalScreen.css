@@ -1,0 +1,68 @@
+/* src/screens/FinalScreen.css */
+
+.final-screen-modern {
+  background: linear-gradient(170deg, #E0F7FA 0%, #B2EBF2 100%); /* Mesmo gradiente da StartScreen */
+  color: #004D40; /* Mesma cor de texto da StartScreen */
+  animation: fadeIn 1s ease-in-out; /* Animação de fade-in para a tela */
+}
+
+.final-screen-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center; /* Centraliza o texto */
+}
+
+.final-title-text {
+  font-size: clamp(3.5em, 15vw, 6em); /* Mesma fonte responsiva do título da StartScreen */
+  font-weight: 700;
+  margin: 0;
+  animation: slideUp 0.8s ease-out; /* Animação de deslizar para o título */
+}
+
+.final-subtitle-text {
+  font-size: clamp(1em, 4vw, 1.5em);
+  font-weight: 300;
+  margin-top: 10px;
+  margin-bottom: 30px; /* Adicionado um pouco de margem para separar do QR Code */
+  /* animation: pulse 2s infinite ease-in-out; <--- LINHA REMOVIDA/COMENTADA */
+}
+
+/* Animações (copiadas de StartScreen.css para consistência) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* A animação 'pulse' ainda está aqui, mas não é mais aplicada ao .final-subtitle-text */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+}
