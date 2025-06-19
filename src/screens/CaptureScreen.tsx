@@ -10,14 +10,13 @@ const CaptureScreen: React.FC<CaptureScreenProps> = ({ onPictureTaken }) => {
   const [countdown, setCountdown] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // A LINHA CORRETA E MAIS MODERNA (RECOMENDADA)
-const countdownIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const countdownIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Função para ligar a câmera (a mesma de antes)
   const startCamera = async () => {
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'user', aspectRatio: 9 / 16 },
+        video: { facingMode: 'user', aspectRatio: 9 / 16 }, // Mantemos o aspecto 9/16
         audio: false,
       });
       setStream(mediaStream);
@@ -31,32 +30,26 @@ const countdownIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     startCamera();
   }, []);
-// Conecta o stream de vídeo da câmera E prepara a limpeza para desligá-la
-useEffect(() => {
-  if (stream && videoRef.current) {
-    videoRef.current.srcObject = stream;
-  }
 
-  // 👇 A MÁGICA ACONTECE AQUI (FUNÇÃO DE LIMPEZA)
-  return () => {
-    // Quando o componente for "desmontado" (ou seja, quando sairmos desta tela),
-    // este código será executado.
-    if (stream) {
-      // Para cada faixa de mídia (neste caso, só o vídeo)...
-      stream.getTracks().forEach(track => {
-        // ...manda parar.
-        track.stop();
-      });
+  // Conecta o stream de vídeo da câmera E prepara a limpeza para desligá-la
+  useEffect(() => {
+    if (stream && videoRef.current) {
+      videoRef.current.srcObject = stream;
     }
-  };
-}, [stream]); // Este hook roda sempre que o 'stream' muda
+
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach(track => {
+          track.stop();
+        });
+      }
+    };
+  }, [stream]);
 
   // Função principal para capturar a foto
   const handleCapture = () => {
-    // Inicia a contagem em 3
     setCountdown(3);
 
-    // A cada segundo, diminui a contagem
     countdownIntervalRef.current = setInterval(() => {
       setCountdown(prev => (prev !== null ? prev - 1 : null));
     }, 1000);
@@ -64,7 +57,6 @@ useEffect(() => {
 
   // Este useEffect observa a contagem regressiva
   useEffect(() => {
-    // Quando a contagem chegar a 0...
     if (countdown === 0) {
       if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
 
@@ -72,16 +64,13 @@ useEffect(() => {
       const canvas = canvasRef.current;
 
       if (video && canvas) {
-        // Desenha a imagem do vídeo no canvas "escondido"
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         const context = canvas.getContext('2d');
         context?.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
 
-        // Converte o canvas para uma imagem (em formato base64)
         const imageDataUrl = canvas.toDataURL('image/jpeg');
 
-        // Envia a imagem para o App.tsx e avança para a próxima tela
         onPictureTaken(imageDataUrl);
       }
     }
@@ -96,7 +85,7 @@ useEffect(() => {
         autoPlay
         playsInline
         muted
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        style={{ width: '100%', height: '100%', objectFit: 'contain' }} // Comentário removido
       />
 
       {/* Canvas escondido que vamos usar para tirar a foto */}
