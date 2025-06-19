@@ -2,31 +2,34 @@
 import { useState } from 'react';
 import './App.css';
 
-// Importa os componentes de tela que criamos
 import StartScreen from './screens/StartScreen';
 import CaptureScreen from './screens/CaptureScreen';
 import ReviewScreen from './screens/ReviewScreen';
 import FinalScreen from './screens/FinalScreen';
 
-// Define os nomes das nossas telas para evitar erros de digitação
 type ScreenName = 'start' | 'capture' | 'review' | 'final';
 
 function App() {
-  // Este 'estado' controla qual tela está sendo exibida no momento.
-  // Começamos na tela 'start'.
   const [currentScreen, setCurrentScreen] = useState<ScreenName>('start');
+  // NOVO ESTADO: para guardar a imagem que capturamos
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
 
-  // Função para renderizar o componente de tela correto
+  // NOVA FUNÇÃO: chamada pela CaptureScreen quando a foto é tirada
+  const handlePictureTaken = (imageDataUrl: string) => {
+    setCapturedImage(imageDataUrl); // Guarda a imagem
+    setCurrentScreen('review');   // Muda para a tela de revisão
+  };
+
   const renderScreen = () => {
     switch (currentScreen) {
       case 'start':
-        // Passamos a função 'setCurrentScreen' como propriedade para a StartScreen
-        // para que ela possa nos dizer quando mudar para a próxima tela.
         return <StartScreen onStart={() => setCurrentScreen('capture')} />;
       case 'capture':
-        return <CaptureScreen />;
+        // Passamos a nova função para a CaptureScreen
+        return <CaptureScreen onPictureTaken={handlePictureTaken} />;
       case 'review':
-        return <ReviewScreen />;
+        // A tela de revisão precisa da imagem para mostrá-la
+        return <ReviewScreen image={capturedImage} />;
       case 'final':
         return <FinalScreen />;
       default:
