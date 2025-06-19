@@ -11,13 +11,24 @@ type ScreenName = 'start' | 'capture' | 'review' | 'final';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState<ScreenName>('start');
-  // NOVO ESTADO: para guardar a imagem que capturamos
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
 
-  // NOVA FUNÇÃO: chamada pela CaptureScreen quando a foto é tirada
   const handlePictureTaken = (imageDataUrl: string) => {
-    setCapturedImage(imageDataUrl); // Guarda a imagem
-    setCurrentScreen('review');   // Muda para a tela de revisão
+    setCapturedImage(imageDataUrl);
+    setCurrentScreen('review');
+  };
+
+  // NOVA FUNÇÃO: para lidar com o botão "Refazer"
+  const handleRefetch = () => {
+    setCapturedImage(null); // Limpa a imagem antiga
+    setCurrentScreen('capture'); // Volta para a tela de captura
+  };
+
+  // NOVA FUNÇÃO: para lidar com o botão "Aprovar"
+  const handleApprove = () => {
+    // No futuro, aqui salvaremos a foto no Firebase
+    // Por enquanto, apenas avançamos para a tela final
+    setCurrentScreen('final');
   };
 
   const renderScreen = () => {
@@ -25,11 +36,16 @@ function App() {
       case 'start':
         return <StartScreen onStart={() => setCurrentScreen('capture')} />;
       case 'capture':
-        // Passamos a nova função para a CaptureScreen
         return <CaptureScreen onPictureTaken={handlePictureTaken} />;
       case 'review':
-        // A tela de revisão precisa da imagem para mostrá-la
-        return <ReviewScreen image={capturedImage} />;
+        // Agora passamos as funções para o ReviewScreen
+        return (
+          <ReviewScreen
+            image={capturedImage}
+            onRefetch={handleRefetch}
+            onApprove={handleApprove}
+          />
+        );
       case 'final':
         return <FinalScreen />;
       default:

@@ -1,11 +1,12 @@
+// src/screens/FinalScreen.tsx
 
-
-const CaptureScreen = () => {
+const FinalScreen = () => {
   return (
-    <div>
+    <div className="screen">
       <h1>Tela Final</h1>
+      {/* Aqui virá o QR Code */}
     </div>
   );
 };
 
-export default CaptureScreen;
+export default FinalScreen;

@@ -1,5 +1,4 @@
 // src/screens/StartScreen.tsx
-import React from 'react';
 
 interface StartScreenProps {
   onStart: () => void;
