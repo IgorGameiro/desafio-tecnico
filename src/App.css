@@ -55,4 +55,19 @@ body {
     border-radius: 20px;
     box-shadow: 0 0 25px rgba(0,0,0,0.5);
   }
+  /* Adicione este código no final do seu App.css */
+
+.final-title {
+  /* Centraliza o texto caso ele quebre em mais de uma linha */
+  text-align: center;
+
+  /* A MÁGICA DA RESPONSIVIDADE: 
+     A fonte terá no mínimo 2.5em, no máximo 4em, 
+     e tentará ter 10vw (10% da largura da tela).
+     Isso faz com que ela diminua em telas pequenas! */
+  font-size: clamp(2.5em, 10vw, 4em);
+
+  /* Garante que palavras longas não quebrem o layout */
+  word-break: break-word;
+}
 }

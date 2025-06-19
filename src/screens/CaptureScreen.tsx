@@ -31,13 +31,25 @@ const countdownIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     startCamera();
   }, []);
+// Conecta o stream de vídeo da câmera E prepara a limpeza para desligá-la
+useEffect(() => {
+  if (stream && videoRef.current) {
+    videoRef.current.srcObject = stream;
+  }
 
-  // Conecta o stream de vídeo da câmera ao elemento <video>
-  useEffect(() => {
-    if (stream && videoRef.current) {
-      videoRef.current.srcObject = stream;
+  // 👇 A MÁGICA ACONTECE AQUI (FUNÇÃO DE LIMPEZA)
+  return () => {
+    // Quando o componente for "desmontado" (ou seja, quando sairmos desta tela),
+    // este código será executado.
+    if (stream) {
+      // Para cada faixa de mídia (neste caso, só o vídeo)...
+      stream.getTracks().forEach(track => {
+        // ...manda parar.
+        track.stop();
+      });
     }
-  }, [stream]);
+  };
+}, [stream]); // Este hook roda sempre que o 'stream' muda
 
   // Função principal para capturar a foto
   const handleCapture = () => {

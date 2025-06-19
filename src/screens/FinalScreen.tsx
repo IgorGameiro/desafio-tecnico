@@ -3,8 +3,7 @@
 const FinalScreen = () => {
   return (
     <div className="screen">
-      <h1>Tela Final</h1>
-      {/* Aqui virá o QR Code */}
+      <h1 className="final-title">Obrigado por usar!</h1>
     </div>
   );
 };
